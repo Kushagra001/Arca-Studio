@@ -1,3 +1,31 @@
+# Arca Studio — Agency Site (Project 02)
+
+Arca Studio is an agency-style site featuring a WebGL hero, interactive browser mockups, and polished UI components.
+
+Quick start
+
+Prerequisites: Node 18+, pnpm
+
+Install and run locally:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Build for production:
+
+```bash
+pnpm build
+pnpm start
+```
+
+Notes
+- This project depends on `@agency/shared` from the workspace. When extracting this project, publish or link the shared package.
+- The repository includes WebGL components (`WireframeMesh`, `BrowserMockup`) under `src/components`.
+
+License
+- MIT
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
