@@ -1,52 +1,175 @@
 # Arca Studio — Agency Site (Project 02)
 
-Arca Studio is an agency-style site featuring a WebGL hero, interactive browser mockups, and polished UI components.
+**Arca Studio** is a premium agency portfolio showcasing cutting-edge web design and development work. Featuring WebGL animations, interactive browser mockups, and a polished case study presentation.
 
-Quick start
+![Arca Studio Hero](./public/screenshots/hero-section.png)
 
-Prerequisites: Node 18+, pnpm
+## Overview
 
-Install and run locally:
+Arca Studio demonstrates advanced web technologies and agency best practices:
+- **WebGL Hero** — Interactive 3D wireframe mesh background
+- **Project Showcase** — Case studies with interactive browser mockups
+- **Services Section** — Detailed service offerings and expertise
+- **Team & Social Proof** — Team highlights and client testimonials
+- **Contact Section** — Lead capture and inquiry form
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: Tailwind CSS 3
+- **Animation**: Framer Motion + GSAP
+- **3D Graphics**: Three.js (WebGL)
+- **UI Components**: `@agency/shared` component library
+- **Typography**: Geist font (Vercel)
+- **Forms**: React Hook Form + Zod validation
+
+## Quick Start
+
+### Prerequisites
+- Node 18+
+- pnpm 10.x
+
+### Installation & Development
 
 ```bash
+# Install dependencies
 pnpm install
+
+# Start dev server
 pnpm dev
 ```
 
-Build for production:
+Open [http://localhost:3000](http://localhost:3000) to view the site.
+
+### Production Build
 
 ```bash
 pnpm build
 pnpm start
 ```
 
-Notes
-- This project depends on `@agency/shared` from the workspace. When extracting this project, publish or link the shared package.
-- The repository includes WebGL components (`WireframeMesh`, `BrowserMockup`) under `src/components`.
+## Project Structure
 
-License
-- MIT
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+src/
+├── app/
+│   ├── page.tsx          # Landing page
+│   ├── layout.tsx        # Root layout
+│   ├── work/            # Portfolio/case study pages
+│   └── globals.css      # Global styles
+└── components/
+    ├── sections/        # Hero, Projects, Services, Team
+    ├── ui/             # Reusable UI components
+    ├── webgl/          # Three.js WebGL components
+    └── layout/         # Header, Footer, Navigation
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. **WebGL & 3D Graphics**
+- Interactive 3D wireframe mesh in hero section
+- Canvas-based animations powered by Three.js
+- GPU-accelerated rendering for smooth 60fps performance
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. **Interactive Browser Mockups**
+- Custom React components simulating browser windows
+- Displays project screenshots in context
+- Responsive design showcasing across device sizes
+
+### 3. **Case Study Pages**
+- Individual pages for each portfolio project
+- Rich media galleries and video embeds
+- Detailed project context and results
+
+### 4. **Performance Optimized**
+- Image lazy-loading and Next.js Image optimization
+- Code-splitting and dynamic imports for WebGL
+- Reduced motion support for accessibility
+
+### 5. **SEO & Accessibility**
+- Semantic HTML structure
+- Meta tags, Open Graph, and JSON-LD structured data
+- ARIA labels and keyboard navigation
+
+## Customization Guide
+
+### Colors & Branding
+1. Update `tailwind.config.ts` for primary colors
+2. Modify WebGL material colors in `src/components/webgl/WireframeMesh.tsx`
+3. Update logo and branding assets in `public/`
+
+### Content
+- **Hero copy**: `src/components/sections/Hero.tsx`
+- **Projects**: `src/components/sections/ProjectShowcase.tsx`
+- **Services**: `src/components/sections/Services.tsx`
+- **Team**: `src/components/sections/Team.tsx`
+
+### WebGL Scene
+Edit `src/components/webgl/WireframeMesh.tsx` to:
+- Adjust mesh complexity and geometry
+- Change material colors and lighting
+- Modify animation speed and rotation
+
+### Forms
+Lead capture form uses `react-hook-form` + `zod`:
+- Validation schema: `src/lib/schemas/contact.ts`
+- Form component: `src/components/sections/Contact.tsx`
+
+## Dependencies
+
+Key packages:
+- `next`: 16.2.x — React framework
+- `react`: 19.x — UI library
+- `three`: ^r128.x — WebGL/3D graphics
+- `framer-motion`: ^11.x — Animation library
+- `@agency/shared`: Monorepo shared components
+- `react-hook-form`: ^7.x — Form management
+- `zod`: ^3.x — Schema validation
+
+## Deployment
+
+### Vercel (Recommended)
+```bash
+vercel deploy
+```
+
+### Other Platforms
+The WebGL components require JavaScript and modern browser support.
+
+Build and deploy:
+```bash
+pnpm build
+# Deploy the `.next` folder
+```
+
+## Performance Tips
+
+1. **WebGL rendering** is resource-intensive on mobile. Consider:
+   - Disabling WebGL on smaller viewports
+   - Using static background fallback
+   - Adding performance monitoring
+
+2. **Image optimization**:
+   - Use Next.js Image component for all images
+   - Serve multiple sizes via `srcSet`
+   - WebP format for modern browsers
+
+3. **Animation tuning**:
+   - Respect `prefers-reduced-motion` media query
+   - Debounce scroll/resize events
+   - Profile with Chrome DevTools
+
+## Notes
+
+- **Workspace Dependency**: Consumes `@agency/shared` from the monorepo. To use standalone:
+  - Publish `@agency/shared` to npm, or
+  - Link packages locally via `pnpm link`
+- **Browser Support**: WebGL requires modern browser (Chrome, Firefox, Safari 15+, Edge)
+- **See Also**: Check `DESIGN.md` for design system and component API documentation
+
+## License
+
+MIT — Premium template available for commercial projects.
 
 ## Learn More
 
