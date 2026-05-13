@@ -2,6 +2,8 @@
 
 **Arca Studio** is a premium agency portfolio showcasing cutting-edge web design and development work. Featuring WebGL animations, interactive browser mockups, and a polished case study presentation.
 
+![Arca Studio Home](./public/home.png)
+
 ## Overview
 
 Arca Studio demonstrates advanced web technologies and agency best practices:
