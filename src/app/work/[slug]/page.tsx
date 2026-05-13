@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Tag } from "@/components/ui/Tag";
@@ -10,6 +11,20 @@ export function generateStaticParams() {
   return WORK_PROJECTS.map((project) => ({ slug: project.slug }));
 }
 
+const projectShots: Record<string, string> = {
+  flow: "/project-shots/flow-home.png",
+  arca: "/project-shots/arca-home.png",
+  medica: "/project-shots/medica-home.png",
+  kern: "/project-shots/kern-home.png",
+};
+
+const projectShotPosition: Record<string, string> = {
+  flow: "center top",
+  arca: "center top",
+  medica: "center top",
+  kern: "center top",
+};
+
 export default async function WorkPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = getCaseStudy(slug);
@@ -17,6 +32,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
 
   const currentIndex = WORK_PROJECTS.findIndex((p) => p.slug === slug);
   const next = WORK_PROJECTS[(currentIndex + 1) % WORK_PROJECTS.length];
+  const screenshot = projectShots[slug];
 
   return (
     <main className="px-8 md:px-16 py-32 bg-paper text-ink">
@@ -33,7 +49,19 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
 
         <h1 className="mt-8 font-display text-[46px] md:text-[72px] leading-[0.95]">{project.title}</h1>
 
-        <div className="mt-10 w-full aspect-[16/9] bg-mist" />
+        <div className="mt-10 w-full aspect-video relative overflow-hidden bg-mist border border-stone">
+          {screenshot ? (
+            <Image
+              src={screenshot}
+              alt={`${project.title} project screenshot`}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 900px"
+              className="object-cover"
+              style={{ objectPosition: projectShotPosition[slug] ?? "center top" }}
+            />
+          ) : null}
+        </div>
 
         <div className="mt-8 grid md:grid-cols-4 gap-4 text-[12px] text-dim">
           <div><p className="text-dust">Client</p><p className="text-ink mt-1">{project.clientType}</p></div>
@@ -71,8 +99,30 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
         </section>
 
         <section className="mt-16 grid md:grid-cols-2 gap-4">
-          <div className="aspect-[4/3] bg-mist" />
-          <div className="aspect-[4/3] bg-mist" />
+          <div className="aspect-4/3 relative overflow-hidden bg-mist border border-stone">
+            {screenshot ? (
+              <Image
+                src={screenshot}
+                alt={`${project.title} project detail screenshot`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+                style={{ objectPosition: "center center" }}
+              />
+            ) : null}
+          </div>
+          <div className="aspect-4/3 relative overflow-hidden bg-mist border border-stone">
+            {screenshot ? (
+              <Image
+                src={screenshot}
+                alt={`${project.title} project detail screenshot crop`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+                style={{ objectPosition: "center bottom" }}
+              />
+            ) : null}
+          </div>
         </section>
 
         <Link href={`/work/${next.slug}`} className="block mt-16 border border-stone p-8 hover:bg-mist transition-colors" data-magnetic>
