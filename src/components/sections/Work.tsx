@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
@@ -7,14 +8,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { WORK_PROJECTS } from "@/lib/projects";
 import { Tag } from "@/components/ui/Tag";
-import { BrowserMockup } from "@/components/ui/BrowserMockup";
-import { mockups } from "@/components/ui/mockups";
-const urls: Record<string, string> = {
-  flow: 'tryflow.app',
-  arca: 'arca.studio',
-  medica: 'medica.health',
-  kern: 'kern.co',
-}
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReveal } from "@agency/shared";
 
@@ -73,21 +66,16 @@ function WorkCard({
       data-magnetic
       className="w-[70vw] max-w-[900px] flex-shrink-0 flex flex-col group cursor-none"
     >
-      {/* Image area: mockup */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16/10", backgroundColor: '#ffffff' }}>
-        <div className="absolute inset-0 p-4 flex items-start justify-center overflow-hidden">
-          <BrowserMockup
-            url={urls[project.slug]}
-            dark={project.slug === 'kern'}
-            className="w-full"
-            scale={0.72}
-          >
-            {(() => {
-              const Mock = (mockups as Record<string, any>)[project.slug]
-              return Mock ? <Mock /> : null
-            })()}
-          </BrowserMockup>
-        </div>
+      {/* Image area */}
+      <div className="relative overflow-hidden bg-mist" style={{ aspectRatio: "16/10" }}>
+        <Image
+          src={`/project-shots/${project.slug}-home.png`}
+          alt={`${project.name} project screenshot`}
+          fill
+          priority={index === 0}
+          sizes="(max-width: 1024px) 100vw, 70vw"
+          className="object-cover object-top"
+        />
 
         {/* Ghost project number */}
         <span

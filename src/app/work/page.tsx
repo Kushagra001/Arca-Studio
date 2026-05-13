@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
@@ -62,6 +63,15 @@ function WorkCard({ project, index }: { project: (typeof WORK_PROJECTS)[number];
     >
       {/* Image area */}
       <div className="relative bg-mist overflow-hidden mb-6" style={{ aspectRatio: "16/10" }}>
+        <Image
+          src={`/project-shots/${project.slug}-home.png`}
+          alt={`${project.name} project screenshot`}
+          fill
+          priority={index === 0}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover object-top"
+        />
+
         {/* Ghost project number */}
         <span
           ref={numRef}
