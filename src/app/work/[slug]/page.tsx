@@ -18,11 +18,11 @@ const projectShots: Record<string, string> = {
   kern: "/project-shots/kern-home.png",
 };
 
-const projectShotPosition: Record<string, string> = {
-  flow: "center top",
-  arca: "center top",
-  medica: "center top",
-  kern: "center top",
+const projectBottomShots: Record<string, [string, string]> = {
+  flow: ["/project-shots/flow-lower.png", "/project-shots/flow-lower-2.png"],
+  arca: ["/project-shots/arca-lower.png", "/project-shots/arca-lower-2.png"],
+  medica: ["/project-shots/medica-lower.png", "/project-shots/medica-lower-2.png"],
+  kern: ["/project-shots/kern-lower.png", "/project-shots/kern-lower-2.png"],
 };
 
 export default async function WorkPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -33,6 +33,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   const currentIndex = WORK_PROJECTS.findIndex((p) => p.slug === slug);
   const next = WORK_PROJECTS[(currentIndex + 1) % WORK_PROJECTS.length];
   const screenshot = projectShots[slug];
+  const [bottomOne, bottomTwo] = projectBottomShots[slug] ?? [screenshot, screenshot];
 
   return (
     <main className="px-8 md:px-16 py-32 bg-paper text-ink">
@@ -58,7 +59,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
               priority
               sizes="(max-width: 1024px) 100vw, 900px"
               className="object-cover"
-              style={{ objectPosition: projectShotPosition[slug] ?? "center top" }}
+              style={{ objectPosition: "center top" }}
             />
           ) : null}
         </div>
@@ -100,10 +101,10 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
 
         <section className="mt-16 grid md:grid-cols-2 gap-4">
           <div className="aspect-4/3 relative overflow-hidden bg-mist border border-stone">
-            {screenshot ? (
+            {bottomOne ? (
               <Image
-                src={screenshot}
-                alt={`${project.title} project detail screenshot`}
+                src={bottomOne}
+                alt={`${project.title} project detail screenshot one`}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
@@ -112,10 +113,10 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
             ) : null}
           </div>
           <div className="aspect-4/3 relative overflow-hidden bg-mist border border-stone">
-            {screenshot ? (
+            {bottomTwo ? (
               <Image
-                src={screenshot}
-                alt={`${project.title} project detail screenshot crop`}
+                src={bottomTwo}
+                alt={`${project.title} project detail screenshot two`}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
